@@ -1,0 +1,454 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Module: Msf::Handler::ReverseHttps
+  
+    &mdash; Documentation by YARD 0.8.7.6
+  
+</title>
+
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../../';
+  framesUrl = "../../frames.html#!Msf/Handler/ReverseHttps.html";
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../../_index.html">Index (R)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../Msf.html" title="Msf (module)">Msf</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Handler.html" title="Msf::Handler (module)">Handler</a></span></span>
+     &raquo; 
+    <span class="title">ReverseHttps</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="../../method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="../../file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Module: Msf::Handler::ReverseHttps
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+  
+    
+  
+    
+      <dt class="r1">Includes:</dt>
+      <dd class="r1"><span class='object_link'><a href="ReverseHttp.html" title="Msf::Handler::ReverseHttp (module)">ReverseHttp</a></span></dd>
+      
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/msf/core/handler/reverse_https.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>This handler implements the HTTP SSL tunneling interface.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+  <h2>Constant Summary</h2>
+  
+
+
+
+  <h2>Constant Summary</h2>
+  
+  <h3 class="inherited">Constants included
+     from <span class='object_link'><a href="../../Rex/Post/Meterpreter.html" title="Rex::Post::Meterpreter (module)">Rex::Post::Meterpreter</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../../Rex/Post/Meterpreter.html#CHANNEL_CLASS_DATAGRAM-constant" title="Rex::Post::Meterpreter::CHANNEL_CLASS_DATAGRAM (constant)">Rex::Post::Meterpreter::CHANNEL_CLASS_DATAGRAM</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#CHANNEL_CLASS_POOL-constant" title="Rex::Post::Meterpreter::CHANNEL_CLASS_POOL (constant)">Rex::Post::Meterpreter::CHANNEL_CLASS_POOL</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#CHANNEL_CLASS_STREAM-constant" title="Rex::Post::Meterpreter::CHANNEL_CLASS_STREAM (constant)">Rex::Post::Meterpreter::CHANNEL_CLASS_STREAM</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#CHANNEL_DIO_CLOSE-constant" title="Rex::Post::Meterpreter::CHANNEL_DIO_CLOSE (constant)">Rex::Post::Meterpreter::CHANNEL_DIO_CLOSE</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#CHANNEL_DIO_READ-constant" title="Rex::Post::Meterpreter::CHANNEL_DIO_READ (constant)">Rex::Post::Meterpreter::CHANNEL_DIO_READ</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#CHANNEL_DIO_WRITE-constant" title="Rex::Post::Meterpreter::CHANNEL_DIO_WRITE (constant)">Rex::Post::Meterpreter::CHANNEL_DIO_WRITE</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#CHANNEL_FLAG_COMPRESS-constant" title="Rex::Post::Meterpreter::CHANNEL_FLAG_COMPRESS (constant)">Rex::Post::Meterpreter::CHANNEL_FLAG_COMPRESS</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#CHANNEL_FLAG_SYNCHRONOUS-constant" title="Rex::Post::Meterpreter::CHANNEL_FLAG_SYNCHRONOUS (constant)">Rex::Post::Meterpreter::CHANNEL_FLAG_SYNCHRONOUS</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#LOAD_LIBRARY_FLAG_EXTENSION-constant" title="Rex::Post::Meterpreter::LOAD_LIBRARY_FLAG_EXTENSION (constant)">Rex::Post::Meterpreter::LOAD_LIBRARY_FLAG_EXTENSION</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#LOAD_LIBRARY_FLAG_LOCAL-constant" title="Rex::Post::Meterpreter::LOAD_LIBRARY_FLAG_LOCAL (constant)">Rex::Post::Meterpreter::LOAD_LIBRARY_FLAG_LOCAL</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#LOAD_LIBRARY_FLAG_ON_DISK-constant" title="Rex::Post::Meterpreter::LOAD_LIBRARY_FLAG_ON_DISK (constant)">Rex::Post::Meterpreter::LOAD_LIBRARY_FLAG_ON_DISK</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#PACKET_TYPE_PLAIN_REQUEST-constant" title="Rex::Post::Meterpreter::PACKET_TYPE_PLAIN_REQUEST (constant)">Rex::Post::Meterpreter::PACKET_TYPE_PLAIN_REQUEST</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#PACKET_TYPE_PLAIN_RESPONSE-constant" title="Rex::Post::Meterpreter::PACKET_TYPE_PLAIN_RESPONSE (constant)">Rex::Post::Meterpreter::PACKET_TYPE_PLAIN_RESPONSE</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#PACKET_TYPE_REQUEST-constant" title="Rex::Post::Meterpreter::PACKET_TYPE_REQUEST (constant)">Rex::Post::Meterpreter::PACKET_TYPE_REQUEST</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#PACKET_TYPE_RESPONSE-constant" title="Rex::Post::Meterpreter::PACKET_TYPE_RESPONSE (constant)">Rex::Post::Meterpreter::PACKET_TYPE_RESPONSE</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_EXTENSIONS-constant" title="Rex::Post::Meterpreter::TLV_EXTENSIONS (constant)">Rex::Post::Meterpreter::TLV_EXTENSIONS</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_META_MASK-constant" title="Rex::Post::Meterpreter::TLV_META_MASK (constant)">Rex::Post::Meterpreter::TLV_META_MASK</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_META_TYPE_BOOL-constant" title="Rex::Post::Meterpreter::TLV_META_TYPE_BOOL (constant)">Rex::Post::Meterpreter::TLV_META_TYPE_BOOL</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_META_TYPE_COMPLEX-constant" title="Rex::Post::Meterpreter::TLV_META_TYPE_COMPLEX (constant)">Rex::Post::Meterpreter::TLV_META_TYPE_COMPLEX</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_META_TYPE_COMPRESSED-constant" title="Rex::Post::Meterpreter::TLV_META_TYPE_COMPRESSED (constant)">Rex::Post::Meterpreter::TLV_META_TYPE_COMPRESSED</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_META_TYPE_GROUP-constant" title="Rex::Post::Meterpreter::TLV_META_TYPE_GROUP (constant)">Rex::Post::Meterpreter::TLV_META_TYPE_GROUP</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_META_TYPE_NONE-constant" title="Rex::Post::Meterpreter::TLV_META_TYPE_NONE (constant)">Rex::Post::Meterpreter::TLV_META_TYPE_NONE</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_META_TYPE_QWORD-constant" title="Rex::Post::Meterpreter::TLV_META_TYPE_QWORD (constant)">Rex::Post::Meterpreter::TLV_META_TYPE_QWORD</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_META_TYPE_RAW-constant" title="Rex::Post::Meterpreter::TLV_META_TYPE_RAW (constant)">Rex::Post::Meterpreter::TLV_META_TYPE_RAW</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_META_TYPE_STRING-constant" title="Rex::Post::Meterpreter::TLV_META_TYPE_STRING (constant)">Rex::Post::Meterpreter::TLV_META_TYPE_STRING</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_META_TYPE_UINT-constant" title="Rex::Post::Meterpreter::TLV_META_TYPE_UINT (constant)">Rex::Post::Meterpreter::TLV_META_TYPE_UINT</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_RESERVED-constant" title="Rex::Post::Meterpreter::TLV_RESERVED (constant)">Rex::Post::Meterpreter::TLV_RESERVED</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TEMP-constant" title="Rex::Post::Meterpreter::TLV_TEMP (constant)">Rex::Post::Meterpreter::TLV_TEMP</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_ANY-constant" title="Rex::Post::Meterpreter::TLV_TYPE_ANY (constant)">Rex::Post::Meterpreter::TLV_TYPE_ANY</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_BOOL-constant" title="Rex::Post::Meterpreter::TLV_TYPE_BOOL (constant)">Rex::Post::Meterpreter::TLV_TYPE_BOOL</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_CHANNEL_CLASS-constant" title="Rex::Post::Meterpreter::TLV_TYPE_CHANNEL_CLASS (constant)">Rex::Post::Meterpreter::TLV_TYPE_CHANNEL_CLASS</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_CHANNEL_DATA-constant" title="Rex::Post::Meterpreter::TLV_TYPE_CHANNEL_DATA (constant)">Rex::Post::Meterpreter::TLV_TYPE_CHANNEL_DATA</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_CHANNEL_DATA_GROUP-constant" title="Rex::Post::Meterpreter::TLV_TYPE_CHANNEL_DATA_GROUP (constant)">Rex::Post::Meterpreter::TLV_TYPE_CHANNEL_DATA_GROUP</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_CHANNEL_ID-constant" title="Rex::Post::Meterpreter::TLV_TYPE_CHANNEL_ID (constant)">Rex::Post::Meterpreter::TLV_TYPE_CHANNEL_ID</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_CHANNEL_PARENTID-constant" title="Rex::Post::Meterpreter::TLV_TYPE_CHANNEL_PARENTID (constant)">Rex::Post::Meterpreter::TLV_TYPE_CHANNEL_PARENTID</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_CHANNEL_TYPE-constant" title="Rex::Post::Meterpreter::TLV_TYPE_CHANNEL_TYPE (constant)">Rex::Post::Meterpreter::TLV_TYPE_CHANNEL_TYPE</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_CIPHER_NAME-constant" title="Rex::Post::Meterpreter::TLV_TYPE_CIPHER_NAME (constant)">Rex::Post::Meterpreter::TLV_TYPE_CIPHER_NAME</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_CIPHER_PARAMETERS-constant" title="Rex::Post::Meterpreter::TLV_TYPE_CIPHER_PARAMETERS (constant)">Rex::Post::Meterpreter::TLV_TYPE_CIPHER_PARAMETERS</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_DATA-constant" title="Rex::Post::Meterpreter::TLV_TYPE_DATA (constant)">Rex::Post::Meterpreter::TLV_TYPE_DATA</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_EXCEPTION-constant" title="Rex::Post::Meterpreter::TLV_TYPE_EXCEPTION (constant)">Rex::Post::Meterpreter::TLV_TYPE_EXCEPTION</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_EXCEPTION_CODE-constant" title="Rex::Post::Meterpreter::TLV_TYPE_EXCEPTION_CODE (constant)">Rex::Post::Meterpreter::TLV_TYPE_EXCEPTION_CODE</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_EXCEPTION_STRING-constant" title="Rex::Post::Meterpreter::TLV_TYPE_EXCEPTION_STRING (constant)">Rex::Post::Meterpreter::TLV_TYPE_EXCEPTION_STRING</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_FLAGS-constant" title="Rex::Post::Meterpreter::TLV_TYPE_FLAGS (constant)">Rex::Post::Meterpreter::TLV_TYPE_FLAGS</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_LENGTH-constant" title="Rex::Post::Meterpreter::TLV_TYPE_LENGTH (constant)">Rex::Post::Meterpreter::TLV_TYPE_LENGTH</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_LIBRARY_PATH-constant" title="Rex::Post::Meterpreter::TLV_TYPE_LIBRARY_PATH (constant)">Rex::Post::Meterpreter::TLV_TYPE_LIBRARY_PATH</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_MACHINE_ID-constant" title="Rex::Post::Meterpreter::TLV_TYPE_MACHINE_ID (constant)">Rex::Post::Meterpreter::TLV_TYPE_MACHINE_ID</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_METHOD-constant" title="Rex::Post::Meterpreter::TLV_TYPE_METHOD (constant)">Rex::Post::Meterpreter::TLV_TYPE_METHOD</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_MIGRATE_ARCH-constant" title="Rex::Post::Meterpreter::TLV_TYPE_MIGRATE_ARCH (constant)">Rex::Post::Meterpreter::TLV_TYPE_MIGRATE_ARCH</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_MIGRATE_BASE_ADDR-constant" title="Rex::Post::Meterpreter::TLV_TYPE_MIGRATE_BASE_ADDR (constant)">Rex::Post::Meterpreter::TLV_TYPE_MIGRATE_BASE_ADDR</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_MIGRATE_ENTRY_POINT-constant" title="Rex::Post::Meterpreter::TLV_TYPE_MIGRATE_ENTRY_POINT (constant)">Rex::Post::Meterpreter::TLV_TYPE_MIGRATE_ENTRY_POINT</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_MIGRATE_LEN-constant" title="Rex::Post::Meterpreter::TLV_TYPE_MIGRATE_LEN (constant)">Rex::Post::Meterpreter::TLV_TYPE_MIGRATE_LEN</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_MIGRATE_PAYLOAD-constant" title="Rex::Post::Meterpreter::TLV_TYPE_MIGRATE_PAYLOAD (constant)">Rex::Post::Meterpreter::TLV_TYPE_MIGRATE_PAYLOAD</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_MIGRATE_PID-constant" title="Rex::Post::Meterpreter::TLV_TYPE_MIGRATE_PID (constant)">Rex::Post::Meterpreter::TLV_TYPE_MIGRATE_PID</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_MIGRATE_SOCKET_PATH-constant" title="Rex::Post::Meterpreter::TLV_TYPE_MIGRATE_SOCKET_PATH (constant)">Rex::Post::Meterpreter::TLV_TYPE_MIGRATE_SOCKET_PATH</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_REQUEST_ID-constant" title="Rex::Post::Meterpreter::TLV_TYPE_REQUEST_ID (constant)">Rex::Post::Meterpreter::TLV_TYPE_REQUEST_ID</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_RESULT-constant" title="Rex::Post::Meterpreter::TLV_TYPE_RESULT (constant)">Rex::Post::Meterpreter::TLV_TYPE_RESULT</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_SEEK_OFFSET-constant" title="Rex::Post::Meterpreter::TLV_TYPE_SEEK_OFFSET (constant)">Rex::Post::Meterpreter::TLV_TYPE_SEEK_OFFSET</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_SEEK_POS-constant" title="Rex::Post::Meterpreter::TLV_TYPE_SEEK_POS (constant)">Rex::Post::Meterpreter::TLV_TYPE_SEEK_POS</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_SEEK_WHENCE-constant" title="Rex::Post::Meterpreter::TLV_TYPE_SEEK_WHENCE (constant)">Rex::Post::Meterpreter::TLV_TYPE_SEEK_WHENCE</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_STRING-constant" title="Rex::Post::Meterpreter::TLV_TYPE_STRING (constant)">Rex::Post::Meterpreter::TLV_TYPE_STRING</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_TARGET_PATH-constant" title="Rex::Post::Meterpreter::TLV_TYPE_TARGET_PATH (constant)">Rex::Post::Meterpreter::TLV_TYPE_TARGET_PATH</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_TRANS_CERT_HASH-constant" title="Rex::Post::Meterpreter::TLV_TYPE_TRANS_CERT_HASH (constant)">Rex::Post::Meterpreter::TLV_TYPE_TRANS_CERT_HASH</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_TRANS_COMM_TIMEOUT-constant" title="Rex::Post::Meterpreter::TLV_TYPE_TRANS_COMM_TIMEOUT (constant)">Rex::Post::Meterpreter::TLV_TYPE_TRANS_COMM_TIMEOUT</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_TRANS_GROUP-constant" title="Rex::Post::Meterpreter::TLV_TYPE_TRANS_GROUP (constant)">Rex::Post::Meterpreter::TLV_TYPE_TRANS_GROUP</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_TRANS_PROXY_HOST-constant" title="Rex::Post::Meterpreter::TLV_TYPE_TRANS_PROXY_HOST (constant)">Rex::Post::Meterpreter::TLV_TYPE_TRANS_PROXY_HOST</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_TRANS_PROXY_PASS-constant" title="Rex::Post::Meterpreter::TLV_TYPE_TRANS_PROXY_PASS (constant)">Rex::Post::Meterpreter::TLV_TYPE_TRANS_PROXY_PASS</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_TRANS_PROXY_USER-constant" title="Rex::Post::Meterpreter::TLV_TYPE_TRANS_PROXY_USER (constant)">Rex::Post::Meterpreter::TLV_TYPE_TRANS_PROXY_USER</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_TRANS_RETRY_TOTAL-constant" title="Rex::Post::Meterpreter::TLV_TYPE_TRANS_RETRY_TOTAL (constant)">Rex::Post::Meterpreter::TLV_TYPE_TRANS_RETRY_TOTAL</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_TRANS_RETRY_WAIT-constant" title="Rex::Post::Meterpreter::TLV_TYPE_TRANS_RETRY_WAIT (constant)">Rex::Post::Meterpreter::TLV_TYPE_TRANS_RETRY_WAIT</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_TRANS_SESSION_EXP-constant" title="Rex::Post::Meterpreter::TLV_TYPE_TRANS_SESSION_EXP (constant)">Rex::Post::Meterpreter::TLV_TYPE_TRANS_SESSION_EXP</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_TRANS_TYPE-constant" title="Rex::Post::Meterpreter::TLV_TYPE_TRANS_TYPE (constant)">Rex::Post::Meterpreter::TLV_TYPE_TRANS_TYPE</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_TRANS_UA-constant" title="Rex::Post::Meterpreter::TLV_TYPE_TRANS_UA (constant)">Rex::Post::Meterpreter::TLV_TYPE_TRANS_UA</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_TRANS_URL-constant" title="Rex::Post::Meterpreter::TLV_TYPE_TRANS_URL (constant)">Rex::Post::Meterpreter::TLV_TYPE_TRANS_URL</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_UINT-constant" title="Rex::Post::Meterpreter::TLV_TYPE_UINT (constant)">Rex::Post::Meterpreter::TLV_TYPE_UINT</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_TYPE_UUID-constant" title="Rex::Post::Meterpreter::TLV_TYPE_UUID (constant)">Rex::Post::Meterpreter::TLV_TYPE_UUID</a></span>, <span class='object_link'><a href="../../Rex/Post/Meterpreter.html#TLV_USER-constant" title="Rex::Post::Meterpreter::TLV_USER (constant)">Rex::Post::Meterpreter::TLV_USER</a></span></p>
+
+  
+  
+  <h3 class="inherited">Constants included
+     from <span class='object_link'><a href="../../Rex/Payloads/Meterpreter/UriChecksum.html" title="Rex::Payloads::Meterpreter::UriChecksum (module)">Rex::Payloads::Meterpreter::UriChecksum</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../../Rex/Payloads/Meterpreter/UriChecksum.html#URI_CHECKSUM_CONN-constant" title="Rex::Payloads::Meterpreter::UriChecksum::URI_CHECKSUM_CONN (constant)">Rex::Payloads::Meterpreter::UriChecksum::URI_CHECKSUM_CONN</a></span>, <span class='object_link'><a href="../../Rex/Payloads/Meterpreter/UriChecksum.html#URI_CHECKSUM_CONN_MAX_LEN-constant" title="Rex::Payloads::Meterpreter::UriChecksum::URI_CHECKSUM_CONN_MAX_LEN (constant)">Rex::Payloads::Meterpreter::UriChecksum::URI_CHECKSUM_CONN_MAX_LEN</a></span>, <span class='object_link'><a href="../../Rex/Payloads/Meterpreter/UriChecksum.html#URI_CHECKSUM_INITJ-constant" title="Rex::Payloads::Meterpreter::UriChecksum::URI_CHECKSUM_INITJ (constant)">Rex::Payloads::Meterpreter::UriChecksum::URI_CHECKSUM_INITJ</a></span>, <span class='object_link'><a href="../../Rex/Payloads/Meterpreter/UriChecksum.html#URI_CHECKSUM_INITN-constant" title="Rex::Payloads::Meterpreter::UriChecksum::URI_CHECKSUM_INITN (constant)">Rex::Payloads::Meterpreter::UriChecksum::URI_CHECKSUM_INITN</a></span>, <span class='object_link'><a href="../../Rex/Payloads/Meterpreter/UriChecksum.html#URI_CHECKSUM_INITP-constant" title="Rex::Payloads::Meterpreter::UriChecksum::URI_CHECKSUM_INITP (constant)">Rex::Payloads::Meterpreter::UriChecksum::URI_CHECKSUM_INITP</a></span>, <span class='object_link'><a href="../../Rex/Payloads/Meterpreter/UriChecksum.html#URI_CHECKSUM_INITW-constant" title="Rex::Payloads::Meterpreter::UriChecksum::URI_CHECKSUM_INITW (constant)">Rex::Payloads::Meterpreter::UriChecksum::URI_CHECKSUM_INITW</a></span>, <span class='object_link'><a href="../../Rex/Payloads/Meterpreter/UriChecksum.html#URI_CHECKSUM_INIT_CONN-constant" title="Rex::Payloads::Meterpreter::UriChecksum::URI_CHECKSUM_INIT_CONN (constant)">Rex::Payloads::Meterpreter::UriChecksum::URI_CHECKSUM_INIT_CONN</a></span>, <span class='object_link'><a href="../../Rex/Payloads/Meterpreter/UriChecksum.html#URI_CHECKSUM_MIN_LEN-constant" title="Rex::Payloads::Meterpreter::UriChecksum::URI_CHECKSUM_MIN_LEN (constant)">Rex::Payloads::Meterpreter::UriChecksum::URI_CHECKSUM_MIN_LEN</a></span>, <span class='object_link'><a href="../../Rex/Payloads/Meterpreter/UriChecksum.html#URI_CHECKSUM_MODES-constant" title="Rex::Payloads::Meterpreter::UriChecksum::URI_CHECKSUM_MODES (constant)">Rex::Payloads::Meterpreter::UriChecksum::URI_CHECKSUM_MODES</a></span>, <span class='object_link'><a href="../../Rex/Payloads/Meterpreter/UriChecksum.html#URI_CHECKSUM_UUID_MIN_LEN-constant" title="Rex::Payloads::Meterpreter::UriChecksum::URI_CHECKSUM_UUID_MIN_LEN (constant)">Rex::Payloads::Meterpreter::UriChecksum::URI_CHECKSUM_UUID_MIN_LEN</a></span></p>
+
+  
+  
+  <h3 class="inherited">Constants included
+     from <span class='object_link'><a href="../Handler.html" title="Msf::Handler (module)">Msf::Handler</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Handler.html#Claimed-constant" title="Msf::Handler::Claimed (constant)">Claimed</a></span>, <span class='object_link'><a href="../Handler.html#Unused-constant" title="Msf::Handler::Unused (constant)">Unused</a></span></p>
+
+
+
+
+  <h2>Instance Attribute Summary</h2>
+  
+  <h3 class="inherited">Attributes included from <span class='object_link'><a href="ReverseHttp.html" title="Msf::Handler::ReverseHttp (module)">ReverseHttp</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="ReverseHttp.html#service-instance_method" title="Msf::Handler::ReverseHttp#service (method)">#service</a></span></p>
+
+  
+  
+  <h3 class="inherited">Attributes included from <span class='object_link'><a href="../Handler.html" title="Msf::Handler (module)">Msf::Handler</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Handler.html#exploit_config-instance_method" title="Msf::Handler#exploit_config (method)">#exploit_config</a></span>, <span class='object_link'><a href="../Handler.html#parent_payload-instance_method" title="Msf::Handler#parent_payload (method)">#parent_payload</a></span>, <span class='object_link'><a href="../Handler.html#pending_connections-instance_method" title="Msf::Handler#pending_connections (method)">#pending_connections</a></span>, <span class='object_link'><a href="../Handler.html#session_waiter_event-instance_method" title="Msf::Handler#session_waiter_event (method)">#session_waiter_event</a></span>, <span class='object_link'><a href="../Handler.html#sessions-instance_method" title="Msf::Handler#sessions (method)">#sessions</a></span></p>
+
+
+  
+    <h2>
+      Class Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#general_handler_type-class_method" title="general_handler_type (class method)">+ (Object) <strong>general_handler_type</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the connection-described general handler type, in this case
+&#39;tunnel&#39;.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#handler_type-class_method" title="handler_type (class method)">+ (Object) <strong>handler_type</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the string representation of the handler type.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Object) <strong>initialize</strong>(info = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Initializes the HTTP SSL tunneling handler.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="ReverseHttp.html" title="Msf::Handler::ReverseHttp (module)">ReverseHttp</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="ReverseHttp.html#bind_port-instance_method" title="Msf::Handler::ReverseHttp#bind_port (method)">#bind_port</a></span>, <span class='object_link'><a href="ReverseHttp.html#listener_address-instance_method" title="Msf::Handler::ReverseHttp#listener_address (method)">#listener_address</a></span>, <span class='object_link'><a href="ReverseHttp.html#listener_uri-instance_method" title="Msf::Handler::ReverseHttp#listener_uri (method)">#listener_uri</a></span>, <span class='object_link'><a href="ReverseHttp.html#lookup_proxy_settings-instance_method" title="Msf::Handler::ReverseHttp#lookup_proxy_settings (method)">#lookup_proxy_settings</a></span>, <span class='object_link'><a href="ReverseHttp.html#on_request-instance_method" title="Msf::Handler::ReverseHttp#on_request (method)">#on_request</a></span>, <span class='object_link'><a href="ReverseHttp.html#payload_uri-instance_method" title="Msf::Handler::ReverseHttp#payload_uri (method)">#payload_uri</a></span>, <span class='object_link'><a href="ReverseHttp.html#scheme-instance_method" title="Msf::Handler::ReverseHttp#scheme (method)">#scheme</a></span>, <span class='object_link'><a href="ReverseHttp.html#setup_handler-instance_method" title="Msf::Handler::ReverseHttp#setup_handler (method)">#setup_handler</a></span>, <span class='object_link'><a href="ReverseHttp.html#ssl%3F-instance_method" title="Msf::Handler::ReverseHttp#ssl? (method)">#ssl?</a></span>, <span class='object_link'><a href="ReverseHttp.html#stop_handler-instance_method" title="Msf::Handler::ReverseHttp#stop_handler (method)">#stop_handler</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../Payload/Windows/VerifySsl.html" title="Msf::Payload::Windows::VerifySsl (module)">Payload::Windows::VerifySsl</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Payload/Windows/VerifySsl.html#get_ssl_cert_hash-instance_method" title="Msf::Payload::Windows::VerifySsl#get_ssl_cert_hash (method)">#get_ssl_cert_hash</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../Rex/Payloads/Meterpreter/UriChecksum.html" title="Rex::Payloads::Meterpreter::UriChecksum (module)">Rex::Payloads::Meterpreter::UriChecksum</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../../Rex/Payloads/Meterpreter/UriChecksum.html#generate_uri_checksum-instance_method" title="Rex::Payloads::Meterpreter::UriChecksum#generate_uri_checksum (method)">#generate_uri_checksum</a></span>, <span class='object_link'><a href="../../Rex/Payloads/Meterpreter/UriChecksum.html#generate_uri_uuid-instance_method" title="Rex::Payloads::Meterpreter::UriChecksum#generate_uri_uuid (method)">#generate_uri_uuid</a></span>, <span class='object_link'><a href="../../Rex/Payloads/Meterpreter/UriChecksum.html#process_uri_resource-instance_method" title="Rex::Payloads::Meterpreter::UriChecksum#process_uri_resource (method)">#process_uri_resource</a></span>, <span class='object_link'><a href="../../Rex/Payloads/Meterpreter/UriChecksum.html#uri_checksum_lookup-instance_method" title="Rex::Payloads::Meterpreter::UriChecksum#uri_checksum_lookup (method)">#uri_checksum_lookup</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../Handler.html" title="Msf::Handler (module)">Msf::Handler</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Handler.html#add_handler-instance_method" title="Msf::Handler#add_handler (method)">#add_handler</a></span>, <span class='object_link'><a href="../Handler.html#cleanup_handler-instance_method" title="Msf::Handler#cleanup_handler (method)">#cleanup_handler</a></span>, <span class='object_link'><a href="../Handler.html#create_session-instance_method" title="Msf::Handler#create_session (method)">#create_session</a></span>, <span class='object_link'><a href="../Handler.html#handle_connection-instance_method" title="Msf::Handler#handle_connection (method)">#handle_connection</a></span>, <span class='object_link'><a href="../Handler.html#handler-instance_method" title="Msf::Handler#handler (method)">#handler</a></span>, <span class='object_link'><a href="../Handler.html#handler_name-instance_method" title="Msf::Handler#handler_name (method)">#handler_name</a></span>, <span class='object_link'><a href="../Handler.html#register_session-instance_method" title="Msf::Handler#register_session (method)">#register_session</a></span>, <span class='object_link'><a href="../Handler.html#setup_handler-instance_method" title="Msf::Handler#setup_handler (method)">#setup_handler</a></span>, <span class='object_link'><a href="../Handler.html#start_handler-instance_method" title="Msf::Handler#start_handler (method)">#start_handler</a></span>, <span class='object_link'><a href="../Handler.html#stop_handler-instance_method" title="Msf::Handler#stop_handler (method)">#stop_handler</a></span>, <span class='object_link'><a href="../Handler.html#wait_for_session-instance_method" title="Msf::Handler#wait_for_session (method)">#wait_for_session</a></span>, <span class='object_link'><a href="../Handler.html#wfs_delay-instance_method" title="Msf::Handler#wfs_delay (method)">#wfs_delay</a></span></p>
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="general_handler_type-class_method">
+  
+    + (<tt>Object</tt>) <strong>general_handler_type</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the connection-described general handler type, in this case
+&#39;tunnel&#39;.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+29
+30
+31</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/msf/core/handler/reverse_https.rb', line 29</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_general_handler_type'>general_handler_type</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tunnel</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="handler_type-class_method">
+  
+    + (<tt>Object</tt>) <strong>handler_type</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the string representation of the handler type</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+21
+22
+23</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/msf/core/handler/reverse_https.rb', line 21</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_handler_type'>handler_type</span>
+  <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>reverse_https</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    - (<tt>Object</tt>) <strong>initialize</strong>(info = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Initializes the HTTP SSL tunneling handler.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/msf/core/handler/reverse_https.rb', line 36</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_info'>info</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='kw'>super</span>
+
+  <span class='id identifier rubyid_register_options'>register_options</span><span class='lparen'>(</span>
+    <span class='lbracket'>[</span>
+      <span class='const'>OptPort</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>LPORT</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='lbracket'>[</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The local listener port</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>8443</span> <span class='rbracket'>]</span><span class='rparen'>)</span><span class='comma'>,</span>
+    <span class='rbracket'>]</span><span class='comma'>,</span> <span class='const'>Msf</span><span class='op'>::</span><span class='const'>Handler</span><span class='op'>::</span><span class='const'>ReverseHttps</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_register_advanced_options'>register_advanced_options</span><span class='lparen'>(</span>
+    <span class='lbracket'>[</span>
+      <span class='const'>OptPath</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>HandlerSSLCert</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='kw'>false</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path to a SSL certificate in unified PEM format</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='comma'>,</span>
+      <span class='const'>OptBool</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>StagerVerifySSLCert</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='kw'>false</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Whether to verify the SSL certificate in Meterpreter</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+    <span class='rbracket'>]</span><span class='comma'>,</span> <span class='const'>Msf</span><span class='op'>::</span><span class='const'>Handler</span><span class='op'>::</span><span class='const'>ReverseHttps</span><span class='rparen'>)</span>
+
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+    <div id="footer">
+  Generated on Tue Jun  2 22:33:00 2015 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.7.6 (ruby-2.1.5).
+</div>
+
+  </body>
+</html>
