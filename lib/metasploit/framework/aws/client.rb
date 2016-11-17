@@ -138,35 +138,29 @@ module Metasploit
           end
         end
 
-        def call_api(service, action)
+        def call_api(service, api_params)
           print_status("#{peer} - Checking access (#{datastore['Region']})...")
-
-          vars_post = {
-            'Action' => action,
-            'Version' => "2010-05-08"
-          }
-          body = body(vars_post)
+          api_params['Version'] = '2010-05-08'
+          body = body(api_params)
+          p body
           body_length = body.length
           body_digest = hexdigest(body)
-
-          begin
-            res = send_request_raw(
-              'method' => 'POST',
-              'data' => body,
-              'headers' => headers(service, body_digest, body_length)
-            )
-            Hash.from_xml(res.body)
-          rescue => e
-            print_error e.message
-          end
+          res = send_request_raw(
+            'method' => 'POST',
+            'data' => body,
+            'headers' => headers(service, body_digest, body_length)
+          )
+          Hash.from_xml(res.body)
+        rescue => e
+          print_error e.message
         end
 
-        def call_iam(action)
-          call_api('iam', action)
+        def call_iam(api_params)
+          call_api('iam', api_params)
         end
 
-        def call_ec2(action)
-          call_api('ec2', action)
+        def call_ec2(api_params)
+          call_api('ec2', api_params)
         end
       end
     end
