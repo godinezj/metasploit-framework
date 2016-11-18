@@ -1,8 +1,8 @@
 require 'msf/core'
 require 'metasploit/framework/aws/client'
 
-class MetasploitModule < Msf::Auxiliary
-
+class MetasploitModule < Msf::Post
+  
   include Metasploit::Framework::Aws::Client
 
   def initialize(info={})
@@ -44,6 +44,10 @@ class MetasploitModule < Msf::Auxiliary
     datastore['RHOST'] = datastore['AWS_IAM_ENDPOINT']
     datastore['RPORT'] = datastore['AWS_IAM_ENDPOINT_PORT']
     datastore['SSL'] = datastore['AWS_IAM_ENDPOINT_SSL']
+    if c['AccessKeyId'].nil? || c['AccessKeyId'].empty?
+      print_error("Clould not find creds")
+      return
+    end
 
     # create user
     username = datastore['IAM_USERNAME']

