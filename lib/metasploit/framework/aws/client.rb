@@ -122,7 +122,7 @@ module Metasploit
 
           if doc["ErrorResponse"] && doc["ErrorResponse"]["Error"]
             print_error doc["ErrorResponse"]["Error"]["Message"]
-            return
+            return false
           end
 
           idoc = doc[response] if doc[response]
@@ -136,13 +136,13 @@ module Metasploit
           else
             print_hsh idoc
           end
+          true
         end
 
         def call_api(service, api_params)
-          print_status("#{peer} - Checking access (#{datastore['Region']})...")
+          print_status("#{peer} - Connecting (#{datastore['RHOST']})...")
           api_params['Version'] = '2010-05-08'
           body = body(api_params)
-          p body
           body_length = body.length
           body_digest = hexdigest(body)
           res = send_request_raw(

