@@ -77,7 +77,7 @@ class MetasploitModule < Msf::Auxiliary
     doc = call_iam('Action' => action, 'UserName' => username)
     doc = print_results(doc, action)
 
-    return unless doc.nil?
+    return if doc.nil?
     path = store_loot(doc['AccessKeyId'], 'text/plain', datastore['RHOST'], doc.to_json)
     print_good("API keys stored at: " + path)
   end
