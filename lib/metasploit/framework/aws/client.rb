@@ -122,7 +122,7 @@ module Metasploit
 
           if doc["ErrorResponse"] && doc["ErrorResponse"]["Error"]
             print_error doc["ErrorResponse"]["Error"]["Message"]
-            return false
+            return nil
           end
 
           idoc = doc[response] if doc[response]
@@ -136,7 +136,7 @@ module Metasploit
           else
             print_hsh idoc
           end
-          true
+          idoc
         end
 
         def call_api(service, api_params)
