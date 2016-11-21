@@ -139,7 +139,7 @@ module Metasploit
 
         def call_api(service, api_params)
           print_status("#{peer} - Connecting (#{datastore['RHOST']})...")
-          api_params['Version'] = '2010-05-08'
+          api_params['Version'] = '2011-06-15'
           body = body(api_params)
           body_length = body.length
           body_digest = hexdigest(body)
