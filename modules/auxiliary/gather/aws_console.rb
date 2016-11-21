@@ -48,17 +48,24 @@ class MetasploitModule < Msf::Auxiliary
       sessionToken: creds.fetch('SessionToken')
     }.to_json
 
-    issuer_url = datastore['CONSOLE_NAME']
-    console_url = "https://console.aws.amazon.com/"
-    signin_url = "https://signin.aws.amazon.com/federation"
-
-    get_signin_token_url = signin_url + "?Action=getSigninToken" + "&SessionType=json&Session=" + CGI.escape(session_json)
-    returned_content = Net::HTTP.get(URI.parse(get_signin_token_url))
-    signin_token = JSON.parse(returned_content)['SigninToken']
+    datastore['RHOST'] = 'signin.aws.amazon.com'
+    datastore['RPORT'] = 443
+    datastore['SSL'] = true
+    resp = send_request_raw(
+      'method'   => 'GET',
+      'uri'      => '/federation?Action=getSigninToken' + "&SessionType=json&Session=" + CGI.escape(session_json)
+    )
+    if resp.code != 200
+      print_err("Error generating console login")
+      print_error(res.body)
+      return
+    end
+    resp_json = JSON.parse(resp.body)
+    signin_token = resp_json['SigninToken']
     signin_token_param = "&SigninToken=" + CGI.escape(signin_token)
-    issuer_param = "&Issuer=" + CGI.escape(issuer_url)
-    destination_param = "&Destination=" + CGI.escape(console_url)
-    login_url = signin_url + "?Action=login" + signin_token_param + issuer_param + destination_param
+    issuer_param = "&Issuer=" + CGI.escape(datastore['CONSOLE_NAME'])
+    destination_param = "&Destination=" + CGI.escape("https://console.aws.amazon.com/")
+    login_url = "https://signin.aws.amazon.com/federation?Action=login" + signin_token_param + issuer_param + destination_param
 
     print_good("Paste this into your browser: #{login_url}")
   end
