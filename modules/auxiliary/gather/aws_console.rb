@@ -35,7 +35,7 @@ class MetasploitModule < Msf::Auxiliary
     datastore['RHOST'] = datastore['AWS_STS_ENDPOINT']
     datastore['RPORT'] = datastore['AWS_STS_ENDPOINT_PORT']
     datastore['SSL'] = datastore['AWS_STS_ENDPOINT_SSL']
-    doc = call_api('sts', 'Action' => action, 'Name' => datastore['CONSOLE_NAME'], 'Policy' => URI.encode(policy))
+    doc = call_sts('Action' => action, 'Name' => datastore['CONSOLE_NAME'], 'Policy' => URI.encode(policy))
     doc = print_results(doc, action)
     return if doc.nil?
     path = store_loot(datastore['ACCESS_KEY'], 'text/plain', datastore['RHOST'], doc.to_json)
