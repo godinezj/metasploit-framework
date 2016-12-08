@@ -116,8 +116,10 @@ class MetasploitModule < Msf::Post
       action = 'CreateAccessKey'
       response = call_iam(creds, 'Action' => action, 'UserName' => username)
       doc = print_results(response, action)
-      results['SecretAccessKey'] = doc['SecretAccessKey']
-      results['AccessKeyId'] = doc['AccessKeyId']
+      if doc
+        results['SecretAccessKey'] = doc['SecretAccessKey']
+        results['AccessKeyId'] = doc['AccessKeyId']
+      end
     end
 
     if datastore['CREATE_CONSOLE']
@@ -126,7 +128,7 @@ class MetasploitModule < Msf::Post
       action = 'CreateLoginProfile'
       response = call_iam(creds, 'Action' => action, 'UserName' => username, 'Password' => password)
       doc = print_results(response, action)
-      results['Password'] = password
+      results['Password'] = password if doc
     end
 
     action = 'GetUser'
