@@ -48,6 +48,7 @@ class MetasploitModule < Msf::Auxiliary
         OptString.new('ROLE_NAME', [false, 'The instance profile/role name', '']),
         OptString.new('VPC_ID', [false, 'The EC2 VPC ID', '']),
         OptString.new('SUBNET_ID', [false, 'The public subnet to use', '']),
+        OptString.new('VPC_ID', [false, 'The EC2 VPC ID', '']),
         OptString.new('SEC_GROUP_ID', [false, 'The EC2 security group to use', '']),
         OptString.new('SEC_GROUP_CIDR', [true, 'EC2 security group network access CIDR', '0.0.0.0/0']),
         OptString.new('SEC_GROUP_PORT', [true, 'EC2 security group network access PORT', 'tcp:22']),
