@@ -121,6 +121,15 @@ module Metasploit
             return nil
           end
 
+          if doc['Response'] && doc['Response']['Errors']
+            if doc['Response']['Errors'].instance_of?('Hash')
+              if doc['Response']['Errors']['Error']
+                print_error(doc['Response']['Errors']['Error']['Message'])
+                return nil
+              end
+            end
+          end
+
           idoc = doc.fetch(response)
           if idoc.nil? || !idoc.instance_of?(Hash)
             print_error "Unexpected response structure"
