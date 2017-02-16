@@ -95,11 +95,20 @@ class MetasploitModule < Msf::Auxiliary
       if doc.nil? || !doc['AccessKeyMetadata'] || !doc['AccessKeyMetadata'].include?('member')
         print_status("Could not retrieve #{user}'s access keys")
       else
-        doc.fetch('AccessKeyMetadata').fetch('member').each do |key_info|
-          print_status("Disabling #{user}'s access key: #{key_info.fetch('AccessKeyId')} (#{!datastore['DRY_RUN']})")
+        member = doc.fetch('AccessKeyMetadata').fetch('member')
+        if member.instance_of?(Array)
+          member.each do |key_info|
+            print_status("Disabling #{user}'s access key: #{key_info.fetch('AccessKeyId')} (#{!datastore['DRY_RUN']})")
+            next if datastore['DRY_RUN']
+            action = 'UpdateAccessKey'
+            doc = call_iam(creds, 'Action' => action, 'UserName' => user, 'AccessKeyId' => key_info.fetch('AccessKeyId'), 'Status' => 'Inactive')
+            print_results(doc, action)
+          end
+        else
+          print_status("Disabling #{user}'s access key: #{member.fetch('AccessKeyId')} (#{!datastore['DRY_RUN']})")
           next if datastore['DRY_RUN']
           action = 'UpdateAccessKey'
-          doc = call_iam(creds, 'Action' => action, 'UserName' => user, 'AccessKeyId' => key_info.fetch('AccessKeyId'), 'Status' => 'Inactive')
+          doc = call_iam(creds, 'Action' => action, 'UserName' => user, 'AccessKeyId' => member.fetch('AccessKeyId'), 'Status' => 'Inactive')
           print_results(doc, action)
         end
       end
