@@ -3,6 +3,7 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
+require 'msf/core'
 require 'metasploit/framework/aws/client'
 
 class MetasploitModule < Msf::Auxiliary
@@ -46,8 +47,6 @@ class MetasploitModule < Msf::Auxiliary
         OptBool.new('SSL', [true, 'AWS EC2 Endpoint SSL', true]),
         OptString.new('INSTANCE_TYPE', [true, 'The instance type', 'm3.medium']),
         OptString.new('ROLE_NAME', [false, 'The instance profile/role name', '']),
-        OptString.new('VPC_ID', [false, 'The EC2 VPC ID', '']),
-        OptString.new('SUBNET_ID', [false, 'The public subnet to use', '']),
         OptString.new('VPC_ID', [false, 'The EC2 VPC ID', '']),
         OptString.new('SUBNET_ID', [false, 'The public subnet to use', '']),
         OptString.new('SEC_GROUP_ID', [false, 'The EC2 security group to use', '']),
@@ -191,7 +190,9 @@ class MetasploitModule < Msf::Auxiliary
       else
         route_table['routeSet']['item'].each do |route|
           if route['gatewayId'] && route['gatewayId'].start_with?('igw-')
-            return route_table['associationSet']['item'].first['subnetId']
+            route_table['associationSet']['item'].each do |item|
+              return item['subnetId'] if item['subnetId']
+            end
           end
         end
       end
