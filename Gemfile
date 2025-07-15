@@ -17,7 +17,7 @@ group :development do
   # for development and testing purposes
   gem 'pry'
   # module documentation
-  gem 'octokit'
+  gem 'octokit', '>= 4.8.0'
   # Metasploit::Aggregator external session proxy
   gem 'metasploit-aggregator' if [
     'x86-mingw32', 'x64-mingw32',
@@ -34,7 +34,7 @@ group :development, :test do
   gem 'rake'
   # Define `rake spec`.  Must be in development AND test so that its available by default as a rake test when the
   # environment is development
-  gem 'rspec-rails'
+  gem 'rspec-rails', '>= 3.7.2'
   gem 'rspec-rerun'
 end
 
