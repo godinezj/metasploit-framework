@@ -17,7 +17,7 @@ group :development do
   # for development and testing purposes
   gem 'pry'
   # module documentation
-  gem 'octokit'
+  gem 'octokit', '>= 4.23.0'
   # Metasploit::Aggregator external session proxy
   gem 'metasploit-aggregator' if [
     'x86-mingw32', 'x64-mingw32',
